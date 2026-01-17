@@ -3,13 +3,15 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# Carrega .env
+# Carrega variáveis do ambiente
 load_dotenv()
 
-# Inicializa cliente OpenAI com chave
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Inicializa cliente com chave e project ID
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    project="proj_U4flvdKVNH0tArvxnDbhV1aj"
+)
 
-# Layout Streamlit
 st.set_page_config(page_title="Syncra - Copiloto de Comunicação", page_icon="🤖")
 st.title("🤖 Copiloto de Comunicação para Assessores")
 st.markdown("Ajuda assessores a responder clientes com clareza, segurança e em conformidade com a CVM.")
