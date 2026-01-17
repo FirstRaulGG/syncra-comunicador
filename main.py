@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # Use diretamente sua chave válida
-openai.api_key = "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"
+openai.api_key = "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"
 
 st.set_page_config(page_title="Copiloto de Comunicação para Assessores", page_icon="🧠")
 st.title("🧠 Copiloto de Comunicação para Assessores")
