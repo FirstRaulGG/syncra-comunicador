@@ -1,12 +1,15 @@
 import streamlit as st
-from openai import OpenAI
 import os
+from openai import OpenAI
 from dotenv import load_dotenv
 
-# Carregar chave da API
+# Carrega .env
 load_dotenv()
+
+# Inicializa cliente OpenAI com chave
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# Layout Streamlit
 st.set_page_config(page_title="Syncra - Copiloto de Comunicação", page_icon="🤖")
 st.title("🤖 Copiloto de Comunicação para Assessores")
 st.markdown("Ajuda assessores a responder clientes com clareza, segurança e em conformidade com a CVM.")
