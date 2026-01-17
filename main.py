@@ -2,10 +2,11 @@ import streamlit as st
 import openai
 import os
 
-# Chave e ID do projeto
+# Chave e ID do projeto (chave diretamente no código — menos seguro, apenas para testes)
 openai.api_key = "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"
-openai.organization = "proj_U4f1vdKVNHOtArvxnDbhV1aj"
+openai.organization = "proj_U4f1vdKVNH0tArvxnDbhV1aj"
 
+st.set_page_config(page_title="Copiloto de Comunicação para Assessores", page_icon="🧠")
 st.title("🧠 Copiloto de Comunicação para Assessores")
 st.write("Ajuda assessores a responder clientes com clareza, segurança e em conformidade com a CVM.")
 
@@ -14,15 +15,18 @@ pergunta = st.text_area("Pergunta ou Situação do Cliente")
 
 if st.button("Gerar Resposta"):
     with st.spinner("Gerando resposta..."):
-        prompt = f"Cliente com perfil {perfil.lower()} pergunta: {pergunta}\nResposta adequada, clara, segura e conforme com as regras da CVM:"
         try:
-            resposta = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+            client = openai.OpenAI()
+            response = client.chat.completions.create(
+                model="gpt-4o",
                 messages=[
-                    {"role": "system", "content": "Você é um assessor financeiro experiente que responde clientes com clareza, segurança e em conformidade com a CVM."},
-                    {"role": "user", "content": prompt}
+                    {"role": "system", "content": f"Você é um assessor financeiro experiente que responde clientes com clareza, segurança e em conformidade com a CVM. Perfil do cliente: {perfil}"},
+                    {"role": "user", "content": pergunta}
                 ]
             )
-            st.success(resposta['choices'][0]['message']['content'])
+            resposta = response.choices[0].message.content
+            st.success("Resposta gerada com sucesso!")
+            st.markdown("### 🧠 Resposta sugerida:")
+            st.write(resposta)
         except Exception as e:
             st.error(f"Erro: {e}")
