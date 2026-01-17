@@ -1,11 +1,11 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
 # Carregar chave da API
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 st.set_page_config(page_title="Syncra - Copiloto de Comunicação", page_icon="🤖")
 st.title("🤖 Copiloto de Comunicação para Assessores")
@@ -26,7 +26,7 @@ Use linguagem simples, mostre os riscos envolvidos e mantenha conformidade com a
 Gere também uma versão adaptada para WhatsApp.
 """
 
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
                     {"role": "system", "content": system_prompt},
