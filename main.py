@@ -14,16 +14,17 @@ pergunta = st.text_area("Pergunta ou Situação do Cliente")
 if st.button("Gerar Resposta") and pergunta:
     with st.spinner("Gerando resposta..."):
         try:
-            response = openai.chat.completions.create(
+            resposta = openai.chat.completions.create(
                 model="gpt-4o",
                 messages=[
                     {"role": "system", "content": f"Você é um assessor financeiro experiente que responde clientes com clareza, segurança e em conformidade com a CVM. O perfil do cliente é {perfil}."},
                     {"role": "user", "content": pergunta}
                 ]
             )
-            resposta = response.choices[0].message.content
+            resposta_final = resposta.choices[0].message.content
             st.success("✅ Resposta gerada com sucesso!")
-            st.markdown("### 💬 Resposta sugerida:")
-            st.write(resposta)
+            st.markdown("### 🧠 Resposta sugerida:")
+            st.write(resposta_final)
+
         except Exception as e:
             st.error(f"Erro: {e}")
